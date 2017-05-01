@@ -1,0 +1,3 @@
+统一接口：high = len(array) - 1
+		  start = 0
+		  mid = (high + start) / 2
