@@ -1,7 +1,9 @@
 import sys
 sys.path.append(r'../unit7') 
-
 from QuickSort import *
+sys.path.append(r'../')
+from InsertSort import *
+
 
 def RandomSelect(Array,p,r,i):
     if p == r:
@@ -16,5 +18,8 @@ def RandomSelect(Array,p,r,i):
     else:
         return RandomSelect(Array,q + 1,r,i - k)
 
-array = [2,8,7,1,3,5,6,4]  #[1 2 3 4 5 6 7 8]
-print RandomSelect(array,0,len(array) - 1,8)
+        
+
+array = [2,8,7,1,3,5,6,4,9,10,11,12,13,14,15]  #[1 2 3 4 5 6 7 8 9 10]
+print RandomSelect(array,0,len(array) - 1,(len(array) + 1) / 2)
+print SelectDriver(array,len(array))
