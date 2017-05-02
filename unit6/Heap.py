@@ -56,12 +56,13 @@ class Heap:
         self.Heap_Increase_Key(self.heap_size - 1,key)
         
 
-array  = [4,1,3,2,16,9,10,14,8,7]
-HeapOb = Heap(array)
+if __name__ = '__main__':
+    array  = [4,1,3,2,16,9,10,14,8,7]
+    HeapOb = Heap(array)
 
-HeapOb.Heap_Insert(20)
-for i in range(HeapOb.heap_size):
-    print array[i]
+    HeapOb.Heap_Insert(20)
+    for i in range(HeapOb.heap_size):
+        print array[i]
 
     
     

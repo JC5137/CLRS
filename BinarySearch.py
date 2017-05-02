@@ -21,5 +21,5 @@ def BinarySearchLoop(array,start,end,element):
         elif array[middle] < element:
             start = middle + 1
             
-            
-print BinarySearchRecursive(A,0,len(A) - 1,15)
+if __name__ == "__main__":   
+    print BinarySearchRecursive(A,0,len(A) - 1,15)

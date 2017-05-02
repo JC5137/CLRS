@@ -32,10 +32,11 @@ def MaximumArray(array,start,end):
             return (max_right_start,max_right_end,right_maxnum)
         else:
             return (max_cross_srart,max_cross_end,cross_maxnum)
-    
-array = [-1,-2,3,-4,2,3,-1]
 
-print MaximumArray(array,0,len(array) - 1)
+
+if __name__ == "__main__":            
+    array = [-1,-2,3,-4,2,3,-1]
+    print MaximumArray(array,0,len(array) - 1)
 
     
     

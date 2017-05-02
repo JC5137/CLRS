@@ -36,7 +36,7 @@ def MergeSort(A,p,r):
         MergeSort(A,q + 1,r)
         Merge(A,p,q,r)
 
-A = [2,3,4,5,1,4,5,7,1,1,2,3,4,5,6,7,8,42,2,32,4,5,67,42,2]
-
-MergeSort(A,0,len(A) - 1)
-print A
+if __name__ == "__main__":
+    A = [2,3,4,5,1,4,5,7,1,1,2,3,4,5,6,7,8,42,2,32,4,5,67,42,2]
+    MergeSort(A,0,len(A) - 1)
+    print A

@@ -10,7 +10,8 @@ def CountSort(A,B,k):
         B[C[A[j]] - 1] = A[j]
         C[A[j]] = C[A[j]] - 1
 
-array = [2,5,3,0,2,3,0,3,1,2,3,4,5,6,7,1,2,3,4,5]
-B = [0] * len(array)
-CountSort(array,B,max(array) + 1)
-print B
+if __name__ = '__main__':        
+    array = [2,5,3,0,2,3,0,3,1,2,3,4,5,6,7,1,2,3,4,5]
+    B = [0] * len(array)
+    CountSort(array,B,max(array) + 1)
+    print B
