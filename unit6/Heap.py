@@ -56,7 +56,7 @@ class Heap:
         self.Heap_Increase_Key(self.heap_size - 1,key)
         
 
-if __name__ = '__main__':
+if __name__ == '__main__':
     array  = [4,1,3,2,16,9,10,14,8,7]
     HeapOb = Heap(array)
 

@@ -15,6 +15,6 @@ def Max_Min(Array,n):
             max = max if max > Array[i + 1] else Array[i + 1]
             min = min if min < Array[i] else Array[i]
     return (max,min)
-if __name__ = '__main__':
+if __name__ == '__main__':
     Array = [1,4,5,6,7,8,-1,2,3,4,1,-8]
     print Max_Min(Array,len(Array))
