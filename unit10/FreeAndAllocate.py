@@ -10,6 +10,7 @@ class ArrayDoubleLinkList:
         self.free = 1
         self.next[self.L] = self.prev[self.L] = 0
         self.size = n
+    
     def ListInsert(self,ItemKey):
         
         x = self.AllocateObject()
