@@ -1,4 +1,5 @@
 #coding:utf-8
+import random
 class RBTreeNode:
     def __init__(self,key = None,color = None):
         self.key = key
@@ -19,7 +20,7 @@ class RBTree:
     def OrderPrintTree(self,Tree,i):
         if Tree != self.Nil:
             self.OrderPrintTree(Tree.left,i+1)
-            print '#' * i + str(Tree.key) + ":"  + Tree.color
+            print '\t' * i + str(Tree.key) + ":"  + Tree.color
             self.OrderPrintTree(Tree.right,i+1)
             
     def LeftRotate(self,Node):
@@ -82,11 +83,11 @@ class RBTree:
                     UncleNode.color = "Black"
                     Node.p.p.color = "Red"
                     Node = Node.p.p
-                elif Node == Node.p.right:     #第二种情况 叔节点为黑色
+                elif Node == Node.p.right:     #第二种情况 叔节点为黑色,且Node为父节点的右节点
                     Node = Node.p
                     self.LeftRotate(Node)
                 else:
-                    Node.p.color = "Black"     #第二种情况转化为第三种情况
+                    Node.p.color = "Black"     #第三种情况 叔节点为黑色,且Node为父节点的左节点
                     Node.p.p.color = "Red" 
                     self.RightRotate(Node.p.p)
             else:                              #对称情况，left与right互换
@@ -96,11 +97,11 @@ class RBTree:
                     UncleNode.color = "Black"
                     Node.p.p.color = "Red"
                     Node = Node.p.p
-                elif Node == Node.p.left:      #第二种情况 叔节点为黑色
+                elif Node == Node.p.left:      #第二种情况 叔节点为黑色,且Node为父节点的左节点
                     Node = Node.p
                     self.RightRotate(Node)
                 else:
-                    Node.p.color = "Black"     #第二种情况转化为第三种情况
+                    Node.p.color = "Black"     #第三种情况 叔节点为黑色,且Node为父节点的右节点
                     Node.p.p.color = "Red"
                     self.LeftRotate(Node.p.p)
         self.Root.color = "Black"
@@ -156,7 +157,7 @@ class RBTree:
                     BrotherNode.color = "Red"
                     self.RightRotate(BrotherNode)
                     BrotherNode = Node.p.right
-                    
+                else:
                     BrotherNode.color = Node.p.color
                     Node.p.color = "Black"
                     BrotherNode.right.color = "Black"
@@ -178,7 +179,7 @@ class RBTree:
                     BrotherNode.color = "Red"
                     self.LeftRotate(BrotherNode)
                     BrotherNode = Node.p.left
-                    
+                else:    
                     BrotherNode.color = Node.p.color
                     Node.p.color = "Black"
                     BrotherNode.left.color = "Black"
@@ -189,8 +190,8 @@ class RBTree:
                 
 RBTreeob = RBTree()
 list = [11,2,14,1,7,15,5,8,4]
-for i in range(10):
-    RBTreeob.RB_Insert(RBTreeNode(i))
+for i in range(100):
+    RBTreeob.RB_Insert(RBTreeNode(random.randint(1,100)))
 
 
 RBTreeob.OrderPrintTree(RBTreeob.Root,0)
