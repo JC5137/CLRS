@@ -1,5 +1,6 @@
 #coding:utf-8
 import random
+import copy
 class RBTreeNode:
     def __init__(self,key = None,color = None):
         self.key = key
@@ -112,13 +113,13 @@ class RBTree:
         elif OldNode == OldNode.p.left:
             OldNode.p.left = NewNode
         else:
-            OldNode.p.Right = OldNode
+            OldNode.p.right = NewNode
         NewNode.p = OldNode.p
     def RB_Delete(self,Node):
         y = Node  
         yOrginalColor = y.color
         if Node.left == self.Nil:
-            x = Node.right  
+            x = Node.right
             self.RB_TransPlant(Node,Node.right)
         elif Node.right == self.Nil:
             x = Node.left
@@ -133,13 +134,13 @@ class RBTree:
                 self.RB_TransPlant(y,y.right)
                 y.right = Node.right
                 y.right.p = y
-            self.RB_TransPlant(T,Node,y)
+            self.RB_TransPlant(Node,y)
             y.left = Node.left
             y.left.p = y
             y.color = Node.color
             
-            if yOrginalColor == "Blcak":
-                self.RB_DeleteFixUp(x)
+        if yOrginalColor == "Black":
+            self.RB_DeleteFixUp(x)
     def RB_DeleteFixUp(self,Node):
         while Node != self.Root and Node.color == "Black":
             if Node == Node.p.left:
@@ -157,7 +158,7 @@ class RBTree:
                     BrotherNode.color = "Red"
                     self.RightRotate(BrotherNode)
                     BrotherNode = Node.p.right
-                else:
+                else:                                       #
                     BrotherNode.color = Node.p.color
                     Node.p.color = "Black"
                     BrotherNode.right.color = "Black"
@@ -189,9 +190,19 @@ class RBTree:
         Node.color = "Black"
                 
 RBTreeob = RBTree()
-list = [11,2,14,1,7,15,5,8,4]
+TreeNode = [0] * 100
+
+
 for i in range(100):
-    RBTreeob.RB_Insert(RBTreeNode(random.randint(1,100)))
+    TreeNode[i] = RBTreeNode(random.randint(1,100))
+    RBTreeob.RB_Insert(TreeNode[i])
+
+
+
+for i in range(50):
+    RBTreeob.RB_Delete(TreeNode[i])
+    
+
 
 
 RBTreeob.OrderPrintTree(RBTreeob.Root,0)
