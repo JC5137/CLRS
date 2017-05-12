@@ -50,6 +50,4 @@ def Select(Array,start,Length,k):
 
 if __name__ == '__main__':        
     array = [8,12,17,6,70,53,13,62,5,7,30,20,50,1,10,14,2,38,15,25,27,4,24,75,65,9,42,57,72,37,19,60,47,63]
-    print Select(array,0,len(array),1)
-    InsertSort(array,0,len(array))
-    print array
+    print Select(array,0,len(array),5)
