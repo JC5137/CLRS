@@ -30,6 +30,6 @@ def PrintLcs(str1,str2,LcsTable,i,j):
         print i,j
 
 if __name__ == "__main__":
-    str1 = "ABCBDAB"
-    str2 = "BDCABA"
+    str1 = "ACCGGTCGAGTGCGCGGAAGCCGGCCGAA"
+    str2 = "GTCGTTCGGAATGCCGTTGCTCTGTAAA"
     PrintLcs(str1,str2,LcsLength(str1,str2),len(str1),len(str2))
