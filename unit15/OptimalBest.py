@@ -19,11 +19,28 @@ def OptimalBest(p,q,n):
                     e[i][j] = t
                     root[i][j] = r
     return (e,root)
+def PrintTreeInOrder(root,i,j):
+    if i <= j:
+        PrintTreeInOrder(root,i,root[i][j] - 1)
+        print root[i][j],
+        PrintTreeInOrder(root,root[i][j] + 1,j)
+def PrintTreePreOrder(root,i,j):
+    if i <= j:
+        print root[i][j],
+        PrintTreePreOrder(root,i,root[i][j] - 1)
+        PrintTreePreOrder(root,root[i][j] + 1,j)
+def PrintTreePostOrder(root,i,j):
+    if i <= j:
+        print root[i][j],
+        PrintTreePostOrder(root,i,root[i][j] - 1)
+        PrintTreePostOrder(root,root[i][j] + 1,j)
 
 p = [0,0.15,0.1,0.05,0.1,0.2]
 q = [0.05,0.1,0.05,0.05,0.05,0.1]
 Result = OptimalBest(p,q,5)
-print Result[0]
-print Result[1]
+
+PrintTreeInOrder(Result[1],1,5)
+print 
+PrintTreePreOrder(Result[1],1,5)
 
         
