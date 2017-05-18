@@ -1,29 +1,34 @@
+#coding:utf8
+#最大堆的话比较函数a > b 返回True,Infinity 为极小值，最小堆相反
 class Heap:
-    def __init__(self,Array):
+    def __init__(self,Array,Comparetor,Infinity):
         self.heap_size = self.arrayLength = len(Array)
+        self.Comparator = Comparetor
+        self.Infinity = Infinity
         self.array = Array
         self.BUILD_MAX_HEAP()
+        
     
     def BUILD_MAX_HEAP(self):
         for i in range(self.arrayLength / 2)[::-1]:
             self.Max_HeapIFY(i)     
         
     def Max_HeapIFY(self,i):
-        LEFT = lambda i : i * 2
-        RIGHT = lambda i : i * 2 + 1
+        LEFT = lambda i : i * 2 + 1  #下标从0开始
+        RIGHT = lambda i : i * 2 + 2
         l = LEFT(i)
         r = RIGHT(i)
         
-        if l < self.heap_size and self.array[l] > self.array[i]:
-            largest = l
+        if l < self.heap_size and self.Comparator(self.array[l],self.array[i]):
+            largestOrLeast = l
         else:
-            largest = i
-        if r < self.heap_size and self.array[r] > self.array[largest]:
-            largest = r
+            largestOrLeast = i
+        if r < self.heap_size and self.Comparator(self.array[r],self.array[largestOrLeast]):
+            largestOrLeast = r
         
-        if largest != i:
-            self.array[i],self.array[largest] = self.array[largest],self.array[i]
-            self.Max_HeapIFY(largest)
+        if largestOrLeast != i:
+            self.array[i],self.array[largestOrLeast] = self.array[largestOrLeast],self.array[i]
+            self.Max_HeapIFY(largestOrLeast)
     
     def HEAPSORT(self):
         for i in range(self.arrayLength)[:0:-1]:
@@ -32,37 +37,39 @@ class Heap:
             self.Max_HeapIFY(0) 
     def Heap_Maximum(self):
         return self.array[0]
-    def Heap_Extract_Max(self):
+    def Heap_Extract_Max_Or_Min(self):
         if self.heap_size <= 0:
             print "heap OverflowError"
         else:
-            max = self.array[0]
+            Max_Or_Min = self.array[0]
             self.array[0] = self.array[self.heap_size - 1]
             self.heap_size = self.heap_size - 1
             self.Max_HeapIFY(0)
-            return max
-    def Heap_Increase_Key(self,i,key):
+            return Max_Or_Min
+    def Heap_Increase_Key(self,i,Object):
         PARENT = lambda i: i / 2
-        if self.array[i] >= key:
+        if self.array[i] != self.Infinity and self.Comparator(self.array[i],Object):
             print "new key is smaller than current key"
         else:
-            self.array[i] = key
-            while i > 0 and self.array[PARENT(i)] < self.array[i]:
+            self.array[i] = Object
+            while i > 0 and self.Comparator(self.array[i],self.array[PARENT(i)]):
                 self.array[PARENT(i)],self.array[i] = self.array[i],self.array[PARENT(i)]
                 i = PARENT(i)
-    def Heap_Insert(self,key):
+    def Heap_Insert(self,Object):
         self.heap_size = self.heap_size + 1
-        self.array.append(-float('inf'))
-        self.Heap_Increase_Key(self.heap_size - 1,key)
+        self.array[self.heap_size - 1] = self.Infinity
+        self.Heap_Increase_Key(self.heap_size - 1,Object)
         
 
+    
 if __name__ == '__main__':
+    #Comparator = lambda a,b: True if a > b else False
     array  = [4,1,3,2,16,9,10,14,8,7]
-    HeapOb = Heap(array)
+    HeapOb = Heap(array,Comparator,-float('inf'))
 
     HeapOb.Heap_Insert(20)
     for i in range(HeapOb.heap_size):
-        print array[i]
+        print array[i],
 
     
     
