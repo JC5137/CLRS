@@ -1,4 +1,5 @@
 #coding:utf-8
+import random
 class BNode:
     def __init__(self,KeyNum = None,IsLeaf = None,Keys = None,ChildPointers = None):
         self.KeyNum = KeyNum
@@ -104,7 +105,14 @@ if __name__ == "__main__":
     for i in range(len(List)):
         BTreeobj.BTreeInsert(List[i])
     BTreeobj.PrintBTree(BTreeobj.Root,0)
-    print BTreeobj.BTreeSearch(BTreeobj.Root,'F')
+    # print BTreeobj.BTreeSearch(BTreeobj.Root,'F')
+    # for i in range(2048):
+        # BTreeobj.BTreeInsert(random.randint(0,1000))
+    # BTreeobj.PrintBTree(BTreeobj.Root,0)
+    
+        
+    
+    
     
           
             
