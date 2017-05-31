@@ -12,10 +12,12 @@ class FibHeapNode:
         self.degree = degree
         self.mark = mark
 def comparetor(ListfHeapNode1,ListfHeapNode2):
-    if ListfHeapNode1.key.key >= ListfHeapNode2.key.key:
+    if ListfHeapNode1.key.key > ListfHeapNode2.key.key:
         return 1
-    else:
+    elif ListfHeapNode1.key.key == ListfHeapNode2.key.key:
         return 0
+    else:
+        return -1
 class FibHeap:
     @classmethod
     def Union(cls,FibHeap1,FibHeap2):
@@ -26,12 +28,43 @@ class FibHeap:
         if FibHeap1.min == None or (FibHeap2.min != None and FibHeap2.min.key < FibHeap1.min.key):
             NewFibHeap.min = FibHeap2.min
         return NewFibHeap
-    #comparetor(a,b) £á>= b return 1   a< b return 0
+    @classmethod
+    def setParent(cls,ListNode,ParentNode):
+        ListNode.key.parent = ParentNode
+    @classmethod
+    def setChildList(cls,ListNode,ChildList):
+        ListNode.key.child = ChildList
+    @classmethod
+    def ListNodeDegreeIncrement(cls,ListNode):
+        ListNode.key.degree = ListNode.key.degree + 1
+    @classmethod
+    def ListNodeDegreeDecrement(cls,ListNode):
+        ListNode.key.degree = ListNode.key.degree - 1
+    @classmethod
+    def setNodeKey(cls,ListNode,key):
+        ListNode.key.key = key
+    @classmethod
+    def setListNodeMark(cls,ListNode,mark):
+        ListNode.key.mark = mark
+    @classmethod
+    def makeHeapNode(cls,key):
+        return FibHeapNode(key)
+    @classmethod
+    def makeListNode(cls,fheapNode):
+        return LinkListNode(fHeapNode)
+    #comparetor(a,b) £á> b return 1   a = b return 0 a < b return -1
     def __init__(self,comparetor):
         self.min = None
         self.n = 0
         self.comparetor = comparetor
         self.rootList = DoubleLoopLinkListSentinel()
+        
+        self.getParent = lambda ListNode : ListNode.key.parent
+        self.getChildList  = lambda ListNode : ListNode.key.child
+        self.getFirstChild = lambda ChildList : ChildList.nil.next
+        self.getListNodeDegree = lambda ListNode : ListNode.key.degree
+        self.getNodeKey = lambda ListNode : ListNode.key.key
+        self.getListNodeMark = lambda ListNode : ListNode.key.mark
     def Insert(self,fHeapNode):
         ListfHeapNode = LinkListNode(fHeapNode)
         self.rootList.Insert(ListfHeapNode)
@@ -55,23 +88,24 @@ class FibHeap:
             self.n = self.n - 1
         return MinNode
     def __FindChildNodes(self,Node):
-        childList = Node.key.child
+        childList = self.getChildList(Node)
         if childList == None:
             return []
         else:
-            childNode = childList.nil.next
+            childNode = self.getFirstChild(childList)
             childNodesList = []
             while childNode != childNode.nil:
                 childNodesList.append(childNode)
                 childNode = childNode.next
             return childNodesList
     def Consolidate(self):
-        DegreeArray = [ None for i in range(int (math.log(self.n,2)) + 1) ]
-        Node = self.rootList.nil.next
+        DegreeArraySize = int (math.log(self.n,2) ) + 1
+        DegreeArray = [ None for i in range(DegreeArraySize) ]
+        Node = self.getFirstChild(self.rootList)
         while Node != self.rootList.nil:
             LittleNode = Node
-            degree = LittleNode.key.degree
-            while degree < len(DegreeArray) and DegreeArray[degree] != None:
+            degree = self.getListNodeDegree(LittleNode)
+            while degree < DegreeArraySize and DegreeArray[degree] != None:
                 LargeNode = DegreeArray[degree]
                 if self.comparetor(LittleNode,LargeNode) == 1:
                     LittleNode,LargeNode = LargeNode,LittleNode
@@ -81,7 +115,7 @@ class FibHeap:
             DegreeArray[degree] = LittleNode
             Node = Node.next
         self.min = None
-        for degree in range(int (math.log(self.n,2)) + 1):
+        for degree in range(DegreeArraySize):
             if DegreeArray[degree] != None:
                 if self.min == None:
                     self.rootList = DoubleLoopLinkListSentinel()
@@ -89,25 +123,52 @@ class FibHeap:
                     self.min = DegreeArray[degree]
                 else:
                     self.rootList.Insert(DegreeArray[degree])
-                    if self.min.key > DegreeArray[degree].key:
+                    if self.comparetor(self.min,DegreeArray[degree]) == 1:
                         self.min = DegreeArray[degree]
     def __HeapLink(self,LargeNode,LittleNode):
         self.rootList.Delete(LargeNode)
-        LargeNode.parent =  LittleNode
-        if LittleNode.key.child != None:
-            LittleNode.key.child.Insert(LargeNode)
+        FibHeap.setParent(LargeNode,LittleNode)
+        childList = self.getChildList(LittleNode)
+        if childList != None:
+            childList.Insert(LargeNode)
         else:
-            LittleNode.key.child = DoubleLoopLinkListSentinel()
-            LittleNode.key.child.Insert(LargeNode)
+            NewChildList = DoubleLoopLinkListSentinel()
+            NewChildList.Insert(LargeNode)
+            FibHeap.setChildList(LittleNode,NewChildList)
+        FibHeap.ListNodeDegreeIncrement(LittleNode)
+        FibHeap.setListNodeMark(LargeNode,False)
+    def DrcreaseKey(self,Node,key): 
+        if self.comparetor(LinkListNode(FibHeapNode(key)),Node) == 1:
+            print "Exception: new key is greater/less than the current key"
+        FibHeap.setNodeKey(Node,key)
+        NodeParent = self.getParent(Node)
         
-        LittleNode.key.degree  = LittleNode.key.degree + 1
-        LargeNode.mark = False  #
-    def PrettyPrint(self,FibNodeList,NumTab):
-        if FibNodeList != None:
-            Node = FibNodeList.nil.next 
-            while Node != FibNodeList.nil:
-                print '----' * NumTab + str(Node.key.key)
-                self.PrettyPrint(Node.key.child,NumTab + 1)
+        if NodeParent != None and self.comparetor(Node,NodeParent) == -1:
+            self.__Cut(Node,NodeParent)
+            self.__CascadingCut(NodeParent)
+        if self.comparetor(Node,self.min) == -1:
+            self.min = Node
+    def __Cut(self,Node,NodeParent):
+        ChildList = self.getChildList(self.getParent(Node))
+        ChildList.Delete(Node)
+        FibHeap.ListNodeDegreeDecrement(self.getParent(Node))
+        self.rootList.Insert(Node)
+        FibHeap.setParent(Node,None)
+        FibHeap.setListNodeMark(Node,False)
+    def __CascadingCut(self,NodeParent):
+        NodeGrandParent = self.getParent(NodeParent)
+        if NodeGrandParent != None:
+            if self.getListNodeMark(NodeParent) == False:
+                FibHeap.setListNodeMark(NodeParent,True)
+            else:
+                self.__Cut(NodeParent,NodeGrandParent)
+                self.__CascadingCut(NodeGrandParent)
+    def PrettyPrint(self,childList,NumTab):
+        if childList != None:
+            Node = self.getFirstChild(childList)
+            while Node != childList.nil:
+                print '----' * NumTab + str(self.getNodeKey(Node))
+                self.PrettyPrint(self.getChildList(Node),NumTab + 1)
                 Node = Node.next
 if __name__ == '__main__':
     FibHeapob = FibHeap(comparetor)
@@ -115,6 +176,9 @@ if __name__ == '__main__':
     for i in range(10):
         FibHeapob.Insert(FibHeapNode(i))
     FibHeapob.ExtractMin()
+    FibHeapob.PrettyPrint(FibHeapob.rootList,0)
+    
+    FibHeapob.DrcreaseKey(FibHeapob.rootList.nil.next.key.child.nil.next,0)
     FibHeapob.PrettyPrint(FibHeapob.rootList,0)
     
     
