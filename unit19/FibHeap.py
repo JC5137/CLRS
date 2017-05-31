@@ -46,12 +46,6 @@ class FibHeap:
     @classmethod
     def setListNodeMark(cls,ListNode,mark):
         ListNode.key.mark = mark
-    @classmethod
-    def makeHeapNode(cls,key):
-        return FibHeapNode(key)
-    @classmethod
-    def makeListNode(cls,fheapNode):
-        return LinkListNode(fHeapNode)
     #comparetor(a,b) £á> b return 1   a = b return 0 a < b return -1
     def __init__(self,comparetor):
         self.min = None
@@ -94,7 +88,7 @@ class FibHeap:
         else:
             childNode = self.getFirstChild(childList)
             childNodesList = []
-            while childNode != childNode.nil:
+            while childNode != childList.nil:
                 childNodesList.append(childNode)
                 childNode = childNode.next
             return childNodesList
@@ -172,14 +166,22 @@ class FibHeap:
                 Node = Node.next
 if __name__ == '__main__':
     FibHeapob = FibHeap(comparetor)
-    
+    FibHeapNodeList = []
     for i in range(10):
-        FibHeapob.Insert(FibHeapNode(i))
-    FibHeapob.ExtractMin()
+        FibHeapNodeList.append(FibHeapNode(i))
+        FibHeapob.Insert(FibHeapNodeList[i])
+    FibHeapListNodeList = []
+    Node = FibHeapob.getFirstChild(FibHeapob.rootList)
+    while Node != FibHeapob.rootList.nil:
+        FibHeapListNodeList.append(Node)
+        Node = Node.next
+
+    for i in range(1):
+        FibHeapob.ExtractMin()
+    for i in range(0,4):
+        FibHeapob.DrcreaseKey(FibHeapListNodeList[i],FibHeapob.getNodeKey(FibHeapListNodeList[i]) - 10)
     FibHeapob.PrettyPrint(FibHeapob.rootList,0)
     
-    FibHeapob.DrcreaseKey(FibHeapob.rootList.nil.next.key.child.nil.next,0)
-    FibHeapob.PrettyPrint(FibHeapob.rootList,0)
     
     
     

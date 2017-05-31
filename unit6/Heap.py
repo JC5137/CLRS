@@ -19,11 +19,11 @@ class Heap:
         l = LEFT(i)
         r = RIGHT(i)
         
-        if l < self.heap_size and self.Comparator(self.array[l],self.array[i]):
+        if l < self.heap_size and self.Comparator(self.array[l],self.array[i]) == 1:
             largestOrLeast = l
         else:
             largestOrLeast = i
-        if r < self.heap_size and self.Comparator(self.array[r],self.array[largestOrLeast]):
+        if r < self.heap_size and self.Comparator(self.array[r],self.array[largestOrLeast]) == 1:
             largestOrLeast = r
         
         if largestOrLeast != i:
@@ -48,22 +48,28 @@ class Heap:
             return Max_Or_Min
     def Heap_Increase_Key(self,i,Object):
         PARENT = lambda i: i / 2
-        if self.array[i] != self.Infinity and self.Comparator(self.array[i],Object):
+        if self.array[i] != self.Infinity and self.Comparator(self.array[i],Object) == 1:
             print "new key is smaller than current key"
         else:
             self.array[i] = Object
-            while i > 0 and self.Comparator(self.array[i],self.array[PARENT(i)]):
+            while i > 0 and self.Comparator(self.array[i],self.array[PARENT(i)]) == 1:
                 self.array[PARENT(i)],self.array[i] = self.array[i],self.array[PARENT(i)]
                 i = PARENT(i)
     def Heap_Insert(self,Object):
         self.heap_size = self.heap_size + 1
+        self.array.append(None)
         self.array[self.heap_size - 1] = self.Infinity
         self.Heap_Increase_Key(self.heap_size - 1,Object)
         
 
-    
+def Comparator(a,b):
+    if a > b:
+        return 1
+    elif a == b:
+        return 0
+    else:
+        return -1
 if __name__ == '__main__':
-    #Comparator = lambda a,b: True if a > b else False
     array  = [4,1,3,2,16,9,10,14,8,7]
     HeapOb = Heap(array,Comparator,-float('inf'))
 
