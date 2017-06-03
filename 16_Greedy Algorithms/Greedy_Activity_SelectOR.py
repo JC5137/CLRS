@@ -1,6 +1,6 @@
 #coding:utf-8
 import sys
-sys.path.append(r'../unit6') 
+sys.path.append(r'../6_Heapsort') 
 
 
 from Heap import *

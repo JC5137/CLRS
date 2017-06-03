@@ -2,7 +2,7 @@
 import sys
 import random
 
-sys.path.append('../unit10')
+sys.path.append('../10_Elementary Data Structures')
 from DoubleLinkList import *
 
 class HashTable_List:

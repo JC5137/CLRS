@@ -1,5 +1,5 @@
 import sys
-sys.path.append(r'../unit7') 
+sys.path.append(r'../7_Quicksort') 
 from QuickSort import *
 sys.path.append(r'../')
 from InsertSort import *

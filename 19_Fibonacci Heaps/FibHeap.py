@@ -1,7 +1,7 @@
 #coding:utf-8
 import sys
 import math
-sys.path.append(r'../unit10')
+sys.path.append(r'../10_Elementary Data Structures')
 from DoubleLinkList import *
 
 class FibHeapNode:
