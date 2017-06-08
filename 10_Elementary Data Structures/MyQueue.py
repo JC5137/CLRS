@@ -2,7 +2,7 @@
 class Queue:
     def __init__(self,n):
         self.size = n
-        self.QueueArray = [0] * n
+        self.QueueArray = [None for i in range(n)]
         self.head = 0
         self.tail = 0
     def EnQueue(self,x):
@@ -14,7 +14,6 @@ class Queue:
                 self.tail = self.tail + 1
         else:
             print "OverflowError"
-
     def DeQueue(self):
         if self.IsEmpty() != True:
             x = self.QueueArray[self.head]
