@@ -7,8 +7,8 @@ class Graph:
     def __init__(self,vertexs,edges):
         self.vertexs = vertexs
         self.edges = edges
-        self._setAttribute()
-    def _setAttribute(self):
+        self.__setAttribute()
+    def __setAttribute(self):
         self.color = {}
         self.distance = {}
         self.prev = {}
@@ -17,7 +17,7 @@ class Graph:
             self.distance[v] = float('inf')
             self.prev[v] = None
     def BFS(self,start):
-        self._setAttribute()
+        self.__setAttribute()
         self.color[start] = 0
         self.distance[start] = 0
         self.prev[start] = None
@@ -54,6 +54,7 @@ if __name__ == '__main__':
             'y':['u','x']
             }
     Graphob = Graph(vertexs,edge)
-    Graphob.BFS('u')
+    Graphob.BFS('s')
     print Graphob.prev
-    Graphob.PrintPath('u','v')
+    print Graphob.distance
+    Graphob.PrintPath('s','v')
