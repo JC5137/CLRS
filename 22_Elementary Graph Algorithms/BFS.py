@@ -7,25 +7,25 @@ class Graph:
     def __init__(self,vertexs,edges):
         self.vertexs = vertexs
         self.edges = edges
-        self.__setAttribute()
-    def __setAttribute(self):
+class GraphProcess:
+    def __setAttribute(self,Graph):
         self.color = {}
         self.distance = {}
         self.prev = {}
-        for v in vertexs:
+        for v in Graph.vertexs:
             self.color[v] = -1
             self.distance[v] = float('inf')
             self.prev[v] = None
-    def BFS(self,start):
-        self.__setAttribute()
+    def BFS(self,Graph,start):
+        self.__setAttribute(Graph)
         self.color[start] = 0
         self.distance[start] = 0
         self.prev[start] = None
-        Q = Queue(len(self.vertexs))
+        Q = Queue(len(Graph.vertexs))
         Q.EnQueue(start)
         while not Q.IsEmpty():
             u = Q.DeQueue()
-            for v in self.edges[u]:
+            for v in Graph.edges[u]:
                 if self.color[v] == -1:
                     self.color[v] = 0
                     self.distance[v] = self.distance[u] + 1
@@ -54,7 +54,8 @@ if __name__ == '__main__':
             'y':['u','x']
             }
     Graphob = Graph(vertexs,edge)
-    Graphob.BFS('s')
-    print Graphob.prev
-    print Graphob.distance
-    Graphob.PrintPath('s','v')
+    GraphProcessob = GraphProcess()
+    GraphProcessob.BFS(Graphob,'s')
+    print GraphProcessob.prev
+    print GraphProcessob.distance
+    GraphProcessob.PrintPath('s','v')
