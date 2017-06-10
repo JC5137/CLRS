@@ -47,7 +47,7 @@ class FibHeap:
     def setListNodeMark(cls,ListNode,mark):
         ListNode.key.mark = mark
     #comparetor(a,b) £á> b return 1   a = b return 0 a < b return -1
-    def __init__(self,comparetor):
+    def __init__(self,comparetor = comparetor):
         self.min = None
         self.n = 0
         self.comparetor = comparetor
@@ -67,6 +67,7 @@ class FibHeap:
             self.min = ListfHeapNode
         elif self.comparetor(self.min,ListfHeapNode) == 1:
             self.min = ListfHeapNode
+        return ListfHeapNode
     def ExtractMin(self):
         MinNode = self.min
         if MinNode != None:
@@ -96,9 +97,11 @@ class FibHeap:
         DegreeArraySize = int (math.log(self.n,2) ) + 1
         DegreeArray = [ None for i in range(DegreeArraySize) ]
         Node = self.getFirstChild(self.rootList)
+        
         while Node != self.rootList.nil:
             LittleNode = Node
             degree = self.getListNodeDegree(LittleNode)
+            print Node.key.degree
             while degree < DegreeArraySize and DegreeArray[degree] != None:
                 LargeNode = DegreeArray[degree]
                 if self.comparetor(LittleNode,LargeNode) == 1:
@@ -132,7 +135,7 @@ class FibHeap:
         FibHeap.ListNodeDegreeIncrement(LittleNode)
         FibHeap.setListNodeMark(LargeNode,False)
     def DrcreaseKey(self,Node,key): 
-        if self.comparetor(LinkListNode(FibHeapNode(key)),Node) == 1:
+        if self.comparetor(LinkListNode(FibHeapNode(key = key)),Node) == 1:
             print "Exception: new key is greater/less than the current key"
         FibHeap.setNodeKey(Node,key)
         NodeParent = self.getParent(Node)
@@ -165,7 +168,7 @@ class FibHeap:
                 self.PrettyPrint(self.getChildList(Node),NumTab + 1)
                 Node = Node.next
 if __name__ == '__main__':
-    FibHeapob = FibHeap(comparetor)
+    FibHeapob = FibHeap()
     FibHeapNodeList = []
     for i in range(10):
         FibHeapNodeList.append(FibHeapNode(i))

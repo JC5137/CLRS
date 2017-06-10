@@ -25,23 +25,23 @@ class DisjointSets:
         if set.parent != set:
             set.parent = self.find_set(set.parent)
         return set.parent
-DisjointSetsOb = DisjointSets()
+if __name__ == '__main__':
+    DisjointSetsOb = DisjointSets()
+    Vertex = ['a','b','c','d','e','f','g','h','i','j']
+    Edge = [ ('a','b'),('a','c'),('b','a'),('b','c'),('b','d'),('c','a'),('c','b'),
+             ('d','b'),('e','f'),('e','g'),('f','e'),('g','e'),('h','i'),('i','h') ]
+             
+    SetDirQuery = {}
+    SetDirResult = {}
 
-Vertex = ['a','b','c','d','e','f','g','h','i','j']
-Edge = [ ('a','b'),('a','c'),('b','a'),('b','c'),('b','d'),('c','a'),('c','b'),
-         ('d','b'),('e','f'),('e','g'),('f','e'),('g','e'),('h','i'),('i','h') ]
-         
-SetDirQuery = {}
-SetDirResult = {}
+    for V in Vertex:
+        disjointSet = DisjointSetsOb.make_set(V)
+        SetDirQuery[V] = disjointSet
+        SetDirResult[V] = disjointSet
+    for edge in Edge:
+        if DisjointSetsOb.find_set(SetDirQuery[edge[0]]) != DisjointSetsOb.find_set(SetDirQuery[edge[1]]):
+            DelNodeSet = DisjointSetsOb.union(SetDirQuery[edge[0]],SetDirQuery[edge[1]])
+            del SetDirResult[DelNodeSet.keys]
 
-for V in Vertex:
-    disjointSet = DisjointSetsOb.make_set(V)
-    SetDirQuery[V] = disjointSet
-    SetDirResult[V] = disjointSet
-for edge in Edge:
-    if DisjointSetsOb.find_set(SetDirQuery[edge[0]]) != DisjointSetsOb.find_set(SetDirQuery[edge[1]]):
-        DelNodeSet = DisjointSetsOb.union(SetDirQuery[edge[0]],SetDirQuery[edge[1]])
-        del SetDirResult[DelNodeSet.keys]
-
-for key,set in SetDirResult.iteritems():
-    print set.keys
+    for key,set in SetDirResult.iteritems():
+        print set.keys

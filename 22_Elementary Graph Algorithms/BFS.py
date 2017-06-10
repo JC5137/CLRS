@@ -40,7 +40,7 @@ class GraphProcess:
      
 if __name__ == '__main__':
     vertexs = ['r','s','t','u','v','w','x','y']
-    edge = {'r':['s','v'],
+    edges = {'r':['s','v'],
             's':['r','w'],
             't':['u','w','x'],
             'u':['t','x','y'],
