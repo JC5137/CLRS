@@ -1,10 +1,7 @@
 ﻿#coding:utf-8
-class Graph:
-    #color:white -1 gray 0 black 1
-    def __init__(self,vertexs,edges):
-        self.vertexs = vertexs
-        self.edges = edges
+from Graph import Graph
 class GraphProcess:
+    #color:white -1 gray 0 black 1
     def __setAttribute(self,Graph):
         vertexs = Graph.vertexs
         self.time = 0

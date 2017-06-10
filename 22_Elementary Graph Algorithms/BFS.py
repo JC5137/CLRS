@@ -1,13 +1,9 @@
 import sys
 sys.path.append(r'../10_Elementary Data Structures')
 from MyQueue import Queue
-
-class Graph:
-    #color:white -1 gray 0 black 1
-    def __init__(self,vertexs,edges):
-        self.vertexs = vertexs
-        self.edges = edges
+from Graph import Graph
 class GraphProcess:
+    #color:white -1 gray 0 black 1
     def __setAttribute(self,Graph):
         self.color = {}
         self.distance = {}
