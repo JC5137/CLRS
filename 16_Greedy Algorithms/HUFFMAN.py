@@ -1,6 +1,6 @@
 #coding:utf-8
 import sys
-sys.path.append(r'../6_Heapsort')
+sys.path.append(r'../06_Heapsort')
 from Heap import *
 
 class HuffmanNode:
