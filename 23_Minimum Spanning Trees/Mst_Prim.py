@@ -11,7 +11,12 @@ def comparetor(ListfHeapNode1,ListfHeapNode2):
         return 0
     else:
         return -1
-        
+def PrintDir(Dir):
+    for (k,v) in Dir.items():
+        print k,
+        print v.prev,
+        print v.next,
+        print 
 def mst_prim(G,r):
     FibHeapob = FibHeap(comparetor)
     SetDirQuery = {}
@@ -20,22 +25,18 @@ def mst_prim(G,r):
             fheapNodeob = FibHeapNode(key = [v,0,None])
         else:
             fheapNodeob = FibHeapNode(key = [v,float('inf'),None])
-        SetDirQuery[v] = FibHeapob.Insert(fheapNodeob)
+        SetDirQuery[v] = FibHeapob.Insert(fheapNodeob)    
     MinNode = FibHeapob.ExtractMin()
     while MinNode != None:
-        print MinNode.key.key
         u = MinNode.key.key[0]
+        print MinNode.key.key
         del SetDirQuery[u]
         for v in G.edges[u]:
             weight = v[1]
             vertex = v[0]
-            print vertex,SetDirQuery.has_key(vertex)
             if SetDirQuery.has_key(vertex) and weight < FibHeapob.getNodeKey(SetDirQuery[vertex])[1]:
-                #print vertex
-                print SetDirQuery[vertex].key
                 FibHeapob.DrcreaseKey(SetDirQuery[vertex],[vertex,weight,u])
         MinNode = FibHeapob.ExtractMin()
-
 if __name__ == '__main__':
     vertexs = ['a','b','c','d','e','f','g','h','i']
     edges = {'a':[('b',4),('h',8)],

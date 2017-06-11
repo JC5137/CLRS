@@ -3,6 +3,7 @@ import sys
 import math
 sys.path.append(r'../10_Elementary Data Structures')
 from DoubleLinkList import *
+import logging
 
 class FibHeapNode:
     def __init__(self,key = None,parent = None,child = None,degree = 0,mark = False):
@@ -97,11 +98,10 @@ class FibHeap:
         DegreeArraySize = int (math.log(self.n,2) ) + 1
         DegreeArray = [ None for i in range(DegreeArraySize) ]
         Node = self.getFirstChild(self.rootList)
-        
         while Node != self.rootList.nil:
             LittleNode = Node
             degree = self.getListNodeDegree(LittleNode)
-            print Node.key.degree
+            nodeNext = Node.next
             while degree < DegreeArraySize and DegreeArray[degree] != None:
                 LargeNode = DegreeArray[degree]
                 if self.comparetor(LittleNode,LargeNode) == 1:
@@ -110,7 +110,7 @@ class FibHeap:
                 DegreeArray[degree] = None
                 degree = degree + 1
             DegreeArray[degree] = LittleNode
-            Node = Node.next
+            Node = nodeNext
         self.min = None
         for degree in range(DegreeArraySize):
             if DegreeArray[degree] != None:
@@ -134,12 +134,11 @@ class FibHeap:
             FibHeap.setChildList(LittleNode,NewChildList)
         FibHeap.ListNodeDegreeIncrement(LittleNode)
         FibHeap.setListNodeMark(LargeNode,False)
-    def DrcreaseKey(self,Node,key): 
+    def DrcreaseKey(self,Node,key):
         if self.comparetor(LinkListNode(FibHeapNode(key = key)),Node) == 1:
             print "Exception: new key is greater/less than the current key"
         FibHeap.setNodeKey(Node,key)
         NodeParent = self.getParent(Node)
-        
         if NodeParent != None and self.comparetor(Node,NodeParent) == -1:
             self.__Cut(Node,NodeParent)
             self.__CascadingCut(NodeParent)
